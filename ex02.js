@@ -20,3 +20,25 @@
 */
 
 // write your code below this comment
+function celsiusToFahrenheit(tempCelsius) {
+    var tempFahrenheit = (tempCelsius * 1.8 + 32).toFixed(0);
+    return tempFahrenheit;
+}
+function fahrenheitToCelsius(tempFahrenheit) {
+    var tempCelsius = ((tempFahrenheit - 32) / 1.8).toFixed(0);
+    return tempCelsius;
+}
+
+function randomTemperatur(unit) {
+    var tempRandom = Math.floor(Math.random() * 100);
+    if (unit === "c") {
+        return "Température aléatoire = " + tempRandom + "°F  ==>  " + fahrenheitToCelsius(tempRandom) + " °C";
+    } else if (unit === "f") {
+        return "Température aléatoire = " + tempRandom + "°C  ==>  " + celsiusToFahrenheit(tempRandom) + " °F";
+    } else {
+        return "Unité inconnue !";
+    }
+}
+
+console.log(randomTemperatur("c"));
+console.log(randomTemperatur("f"));
