@@ -26,4 +26,21 @@
 */
 
 // write your code below this comment
+function displayCurrentTime() {
+    var currentDate = new Date();
+    console.log(formatCurrentTime(currentDate));
+}
 
+function formatCurrentTime(currentDate) {
+    var h = currentDate.getHours();
+    var m = currentDate.getMinutes();
+    var s = currentDate.getSeconds();
+    h = h < 10 ? '0' + h : h;
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+
+    var currentTime = h + ':' + m + ':' + s;
+    return currentTime;
+}
+
+setInterval(displayCurrentTime, 1000);
