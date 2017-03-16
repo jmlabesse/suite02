@@ -11,6 +11,9 @@
 
     The number to calcul is a generated random number.
     You must create this random number.
+    
+    You must convert this generated number to the requested unit.
+    So if I ask you to convert to Celsius, consider that the generated number is in Fahrenheit.
 
     Write your own tests !
     
