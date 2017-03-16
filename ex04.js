@@ -14,3 +14,17 @@
 */
 
 // write your code below this comment
+function findSumByMultiples(limitNumber) {
+    var sum = 0;
+
+    for (let number = 1; number < limitNumber; number++) {
+        if (number % 3 === 0 || number % 5 === 0) {
+            sum += number;
+        }
+    }
+
+    return sum;
+}
+
+console.log(findSumByMultiples(10));
+console.log(findSumByMultiples(1000));
