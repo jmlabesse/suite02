@@ -53,6 +53,7 @@ const freeSpace = ".";
 const replaceChar = "O";
 
 function findSquare(map) {
+    var wallChar = findWallChar(map);
     var maxSize = 1;
     var biggestSquares = [];
 
@@ -64,22 +65,21 @@ function findSquare(map) {
 
             if (currentPoint === freeSpace) {
 
-                var squareEnd = (currentLine.indexOf("x", column) < 0 ? currentLine.length : currentLine.indexOf("x", column));
-                var squareSize = squareEnd - column;
+                var nextWallPos = currentLine.indexOf(wallChar, column);
+                var squareEnd = nextWallPos < 0 ? currentLine.length : nextWallPos;
+                var maxSquareSize = squareEnd - column;
 
-                if (squareSize >= maxSize) {
+                for (let size = maxSquareSize; size >= maxSize; size--) {
                     var oneBigSquare = {
                         startX: column,
                         startY: line,
-                        size: squareSize
+                        size: size
                     }
                     if (isPureSquare(map, oneBigSquare)) {
                         biggestSquares.push(oneBigSquare);
-                        maxSize = squareSize;
+                        maxSize = size;
                     }
                 }
-
-
             }
         }
     }
@@ -113,12 +113,22 @@ function replaceSubStrAt(string, start, length) {
     return string.substr(0, start) + replaceChar.repeat(length) + string.substr(start + length);
 }
 
+function findWallChar(map) {
+    for (let line of map) {
+        for (let column of line) {
+            if (column != '.') {
+                return column;
+            }
+        }
+    }
+    return ' ';
+}
 
 var mapTest1 = [
     "xxxxxxxxxxx",
     "xxxx...x..x",
     "xxxx...x..x",
-    "xxxx...xxxx",
+    "xxxx..xxxxx",
     "xxxxxxx..xx",
     "xx..xxxxxxx",
     "xx..xxxx.xx",
@@ -134,7 +144,7 @@ var mapTest2 = [
     "xxxx...x..x",
     "xxxx...xxxx",
     "xxxxxxx..xx",
-    "x...xxxxxxx",
+    "x....xxxxxx",
     "x...xxxx.xx",
     "x...xxxx..x",
     "xxxxxxx..xx",
@@ -190,9 +200,50 @@ var mapTest6 = [
     "xxxxxxxxxxx",
     "xxxxxxxxxxx"
 ];
+var mapTest7 = [
+    '##########',
+    '#.##.....#',
+    '#..#..#.##',
+    '#....##..#',
+    '###..#.###',
+    '#...#....#',
+    '#...#....#',
+    '#........#',
+    '####....##',
+    '##########'
+]
+var mapTest8 = [
+    '##########',
+    '###......#',
+    '#........#',
+    '#....#.###',
+    '##......##',
+    '#.#......#',
+    '#..#.#.#.#',
+    '#......#.#',
+    '#.##.#...#',
+    '##########'
+]
+
+var mapTest9 = [
+    '##########',
+    '#.##..##.#',
+    '##.......#',
+    '#..#.....#',
+    '###....#.#',
+    '#..#...#.#',
+    '#...#....#',
+    '#.......##',
+    '#.#..#.#.#',
+    '##########'
+]
+
 console.log(findSquare(mapTest1));
 console.log(findSquare(mapTest2));
 console.log(findSquare(mapTest3));
 console.log(findSquare(mapTest4));
 console.log(findSquare(mapTest5));
 console.log(findSquare(mapTest6));
+console.log(findSquare(mapTest7));
+console.log(findSquare(mapTest8));
+console.log(findSquare(mapTest9));
