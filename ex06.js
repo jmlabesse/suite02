@@ -24,26 +24,18 @@
 
 // write your code below this comment
 function bubbleSort(array) {
-    var sortedArray = [];
 
-    while (array.length > 0) {
-        var ind = minValueIndex(array);
-        sortedArray.push(array[ind]);
-        array.splice(ind, 1);
-    }
-    return sortedArray;
-}
-
-function minValueIndex(array) {
-    var min = array[0];
-    var minIndex = 0;
-    for (index in array) {
-        if (array[index] < min) {
-            min = array[index];
-            minIndex = index;
+    for (let i = array.length - 1; i > 0; i--) {
+        for (let j = 0; j < i; j++) {
+            if (array[j + 1] < array[j]) {
+                let temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
         }
     }
-    return minIndex;
+
+    return array;
 }
 
 console.log(bubbleSort([8, 3, 0]));
